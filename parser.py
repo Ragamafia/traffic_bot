@@ -3,35 +3,41 @@ import re
 import requests
 from bs4 import BeautifulSoup
 
-import config as cf
+import config as cfg
 
 
-response = requests.get(cf.URL)
+response = requests.get(cfg.URL)
 soup = BeautifulSoup(response.text, 'lxml')
 
 
 def count_flight(tag, start_time, end_time):
+
     flights = soup.find_all(id=tag)
     for i in flights:
-        time = re.findall(cf.pattern, i.text)
+        print(i.text)
+        time = re.findall(cfg.pattern, i.text)
         time_list = [f"{h}:{m}" for h, m in time]
+        print(time_list)
+        print(len(time_list))
         filtered_times = [
             time for time in time_list if start_time <= time <= end_time
         ]
+        print(filtered_times)
         return filtered_times
 
 
-def waring(total, start_time, end_time, fligths):
-    if total >= fligths:
-        print(f'С {start_time} до {end_time} ожидается {fligths} рейсов. Движение затруднено')
+def waring(total):
+    print(f'С {cfg.start_time} до {cfg.end_time} ожидается {total} рейсов.')
+    if total >= cfg.compare_flights:
+        print('Движение затруднено')
     else:
-        print(f'С {start_time} до {end_time} ожидается {fligths} рейсов. Дорога свободна')
+        print('Дорога свободна')
 
 
-arrival = count_flight(cf.tag_arrival, cf.start_time, cf.end_time)
-departure = count_flight(cf.tag_departure, cf.start_time, cf.end_time)
+arrival = count_flight(cfg.tag_arrival, cfg.start_time, cfg.end_time)
+departure = count_flight(cfg.tag_departure, cfg.start_time, cfg.end_time)
 total = len(arrival + departure)
 
 
 if __name__ == '__main__':
-    waring(total, cf.start_time, cf.end_time, cf.compare_flights)
+    waring(total)
