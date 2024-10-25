@@ -2,11 +2,13 @@ from aiogram import types, Router
 from aiogram.filters import CommandStart, Command
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
+
 user_private_router = Router()
 
 @user_private_router.message(CommandStart())
 async def start_cmd(message: types.Message):
-    await message.answer('Привет! Я могу рассказать вам про траффик возле Аэропорта! Для продолжения, нажмите "МЕНЮ")')
+    await message.answer('Привет! Я могу рассказать тебе про траффик возле Аэропорта! Для продолжения, нажми "МЕНЮ"✈️'
+    )
 
 
 @user_private_router.message(Command('traffic'))
