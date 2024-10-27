@@ -23,5 +23,3 @@ def links():
         [InlineKeyboardButton(text='Плотина ГЭС к Мухиной', url='https://t.me/karban_flo')]
     ]
     return InlineKeyboardMarkup(inline_keyboard=link_list)
-
-
