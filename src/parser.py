@@ -1,7 +1,6 @@
 import time
 import json
 
-
 import requests
 from bs4 import BeautifulSoup
 
@@ -39,7 +38,7 @@ def check_total_flights(flights):
         return False
 
 
-if __name__ == '__main__':
-    flights = get_flights()
-    print(check_total_flights(flights))
+# if __name__ == '__main__':
+#     flights = get_flights()
+#     print(check_total_flights(flights))
     # print(json.dumps(flights, indent=4))
