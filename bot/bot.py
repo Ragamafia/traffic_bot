@@ -5,7 +5,7 @@ import logging
 from aiogram import Bot, Dispatcher
 from dotenv import find_dotenv, load_dotenv
 
-from keyboards import router
+from user_privat import router
 
 
 load_dotenv(find_dotenv())
