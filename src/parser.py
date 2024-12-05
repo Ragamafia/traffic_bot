@@ -1,10 +1,9 @@
 import time
-import json
 
 import requests
 from bs4 import BeautifulSoup
 
-import config as cfg
+import src.config as cfg
 
 
 def get_flights():
@@ -31,14 +30,8 @@ def check_total_flights(flights):
     filtered_flight = [
         flight for flight in time_list if cfg.start_time <= flight <= cfg.end_time
         ]
-
+    print(len(filtered_flight))
     if len(filtered_flight) >= cfg.compare_flights:
         return True
     else:
         return False
-
-
-# if __name__ == '__main__':
-#     flights = get_flights()
-#     print(check_total_flights(flights))
-    # print(json.dumps(flights, indent=4))
