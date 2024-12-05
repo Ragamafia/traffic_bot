@@ -3,7 +3,7 @@ import time
 import requests
 from bs4 import BeautifulSoup
 
-import src.config as cfg
+import config as cfg
 
 
 def get_flights():
@@ -30,8 +30,17 @@ def check_total_flights(flights):
     filtered_flight = [
         flight for flight in time_list if cfg.start_time <= flight <= cfg.end_time
         ]
-    print(len(filtered_flight))
     if len(filtered_flight) >= cfg.compare_flights:
         return True
     else:
         return False
+
+
+def create_message():
+    if check_total_flights(get_flights()):
+        traffic = f'С {cfg.start_time} до {cfg.end_time} прибывает и убывает более {cfg.compare_flights} авиарейсов.' \
+                  f'\nВ районе Аэропорта возможно затруднение движения.'
+    else:
+        traffic = f'С {cfg.start_time} до {cfg.end_time} ожидается менее {cfg.compare_flights} авиарейсов.' \
+                  f'\n.Дорога у Аэропорта свободна.'
+    return traffic

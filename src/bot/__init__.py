@@ -6,7 +6,7 @@ import logging
 from aiogram import Bot, Dispatcher
 from dotenv import find_dotenv, load_dotenv
 
-from user_privat import router
+from bot.user_private import router
 
 
 load_dotenv(find_dotenv())
@@ -23,6 +23,3 @@ class TeleBot:
             await self.dp.start_polling(self.bot)
 
         asyncio.run(main())
-
-
-TeleBot()

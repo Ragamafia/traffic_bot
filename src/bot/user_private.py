@@ -1,8 +1,8 @@
 from aiogram import types, Router, F
 from aiogram.filters import CommandStart, Command
 
-from keyboards import links
-from src.utils import create_message
+from bot.keyboards import links
+from src.parser import create_message
 
 
 router = Router()
