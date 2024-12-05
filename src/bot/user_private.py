@@ -1,7 +1,7 @@
 from aiogram import types, Router, F
 from aiogram.filters import CommandStart, Command
 
-from bot.keyboards import links
+from src.bot.keyboards import links
 from src.parser import create_message
 
 

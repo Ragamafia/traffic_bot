@@ -42,5 +42,5 @@ def create_message():
                   f'\nВ районе Аэропорта возможно затруднение движения.'
     else:
         traffic = f'С {cfg.start_time} до {cfg.end_time} ожидается менее {cfg.compare_flights} авиарейсов.' \
-                  f'\n.Дорога у Аэропорта свободна.'
+                  f'\nДорога у Аэропорта свободна.'
     return traffic
