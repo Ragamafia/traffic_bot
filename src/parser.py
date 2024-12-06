@@ -1,46 +1,35 @@
-import time
-
 import requests
 from bs4 import BeautifulSoup
 
 import config as cfg
 
 
-def get_flights():
+def get_flights():  # получаем полный список рейсов с онлайн-табло аэропорта
+    flights = {}
+
     response = requests.get(cfg.URL)
     soup = BeautifulSoup(response.text, 'lxml')
-    flights = {}
+
     for section in soup.find_all("tbody"):
         section_type = section.get("id").lower()
         flights[section_type] = []
 
         for index, line in enumerate(section.find_all("tr")):
             *_, time, status = [d.text for d in line.find_all("div")]
-            flights[section_type].append((time))
+            flights[section_type].append(time)
 
     return flights
 
 
-def check_total_flights(flights):
-    time_list = []
-    for i in flights.values():
-        for b in i:
-            time_list.append(time.strftime(b))
+def select_flights(flights):    # отбор рейсов в заданном временном промежутке
+    filtered_flights = {}
 
-    filtered_flight = [
-        flight for flight in time_list if cfg.start_time <= flight <= cfg.end_time
+    for k, v in flights.items():
+        filtered_flights[k] = [
+            select for select in v if cfg.start_time <= select <= cfg.end_time
         ]
-    if len(filtered_flight) >= cfg.compare_flights:
-        return True
-    else:
-        return False
+
+    return filtered_flights
 
 
-def create_message():
-    if check_total_flights(get_flights()):
-        traffic = f'С {cfg.start_time} до {cfg.end_time} прибывает и убывает более {cfg.compare_flights} авиарейсов.' \
-                  f'\nВ районе Аэропорта возможно затруднение движения.'
-    else:
-        traffic = f'С {cfg.start_time} до {cfg.end_time} ожидается менее {cfg.compare_flights} авиарейсов.' \
-                  f'\nДорога у Аэропорта свободна.'
-    return traffic
+filtered_flights = select_flights(get_flights())

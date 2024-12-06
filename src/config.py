@@ -7,11 +7,11 @@ compare_flights = 20
 
 
 def get_time():
-    start = datetime.now() - timedelta(hours=2)
-    end = datetime.now() + timedelta(hours=3)
-    two_hours_ago = start.strftime("%H:%M")
-    three_hours_later = end.strftime("%H:%M")
+    start = datetime.utcnow() + timedelta(hours=6)
+    end = datetime.utcnow() + timedelta(hours=10)
+    hours_ago = start.strftime("%H:%M")
+    hours_later = end.strftime("%H:%M")
 
-    return two_hours_ago, three_hours_later
+    return hours_ago, hours_later
 
 start_time, end_time = get_time()
