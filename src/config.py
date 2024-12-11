@@ -1,17 +1,16 @@
-from datetime import datetime, timedelta
-
+from datetime import datetime, timedelta, timezone
 
 URL = 'https://iktport.ru/ru/passengers/shortdates-ru.html?DayKey=+0'
 
-compare_flights = 20
+compare_flights = 33
 
+offset_ago = timedelta(hours=6)
+offset_later = timedelta(hours=10)
 
 def get_time():
-    start = datetime.utcnow() + timedelta(hours=6)
-    end = datetime.utcnow() + timedelta(hours=10)
-    hours_ago = start.strftime("%H:%M")
-    hours_later = end.strftime("%H:%M")
+    start_time = datetime.now(timezone(offset_ago)).strftime("%H:%M")
+    end_time = datetime.now(timezone(offset_later)).strftime("%H:%M")
 
-    return hours_ago, hours_later
+    return start_time, end_time
 
 start_time, end_time = get_time()

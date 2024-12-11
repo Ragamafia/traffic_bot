@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 import config as cfg
 
 
-def get_flights():  # получаем полный список рейсов с онлайн-табло аэропорта
+def get_flights():  # получаем рейсы с онлайн-табло аэропорта
     flights = {}
 
     response = requests.get(cfg.URL)
@@ -18,10 +18,6 @@ def get_flights():  # получаем полный список рейсов с
             *_, time, status = [d.text for d in line.find_all("div")]
             flights[section_type].append(time)
 
-    return flights
-
-
-def select_flights(flights):    # отбор рейсов в заданном временном промежутке
     filtered_flights = {}
 
     for k, v in flights.items():
@@ -30,6 +26,3 @@ def select_flights(flights):    # отбор рейсов в заданном в
         ]
 
     return filtered_flights
-
-
-filtered_flights = select_flights(get_flights())
