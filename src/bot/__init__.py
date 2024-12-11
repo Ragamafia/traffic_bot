@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.INFO)
 
 class TeleBot:
     def __init__(self):
-        self.bot = Bot(token=os.getenv('TOKEN'))
+        self.bot = Bot(token=os.getenv('TOKEN'), parse_mode="HTML")
         self.dp = Dispatcher()
         self.dp.include_router(router)
 
